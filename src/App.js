@@ -4,12 +4,16 @@ import creatureImages from './horned-creatures';
 import './App.css';
 
 class App extends Component {
-    state = {  }
+    state = { keyword: 'chameleon' }
     render() { 
             return ( 
                 <>
                 <ImageList 
-                    creatureImages={creatureImages}
+                    creatureImages={creatureImages.filter(
+                        (creature) => {
+                            return creature.keyword === 'chameleon';
+                        }
+                    )}
                 />
             </> 
         );
