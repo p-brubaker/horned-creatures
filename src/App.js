@@ -9,7 +9,7 @@ class App extends Component {
             return ( 
                 <>
                 <ImageList 
-                    data={creatureImages}
+                    creatureImages={creatureImages}
                 />
             </> 
         );

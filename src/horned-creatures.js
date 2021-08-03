@@ -179,6 +179,6 @@ const images = [
     keyword: "dragon",
     horns: 100
   }
-];
-
+];     
+   
 export default images;
