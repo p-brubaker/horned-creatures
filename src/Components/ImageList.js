@@ -7,7 +7,7 @@ class ImageList extends Component {
         return ( 
             <p>{this.props.creatureImages.map(
                 (creature) => {
-                    return <ImageItem creature={creature}/>
+                    return <ImageItem creature={creature} key={creature.id}/>
                 }
             )}</p>
          );
