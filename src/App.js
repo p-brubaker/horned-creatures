@@ -23,19 +23,19 @@ class App extends Component {
             numHorns: e.target.value
         })
     }
-    
+
     render() { 
             const options = [...new Set(creatures.map(creature => creature.keyword))];
             return ( 
                 <>
-                <select name="creature-select" onChange={this.updateKeyword}>
+                <select name="creature-select" defaultValue="All" onChange={this.updateKeyword}>
                     <CreatureOptions 
                         options={options}
                         criterion={'keyword'}
                     />
                 </select>
                 <label htmlFor="creature-select">Filter by keyword</label>
-                <select name="horn-select" onChange={this.updateHorns}>
+                <select name="horn-select" defaultValue="All" onChange={this.updateHorns}>
                     <CreatureOptions
                         options={[1, 2, 3, 100]}
                         criterion={'Horns'}
