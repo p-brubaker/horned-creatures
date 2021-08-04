@@ -6,8 +6,8 @@ import './App.css';
 
 class App extends Component {
     state = { 
-                keyword: false,
-                numHorns: false
+                keyword: 'All',
+                numHorns: 'All'
             }
 
     updateKeyword = (e) => {
@@ -20,51 +20,35 @@ class App extends Component {
     updateHorns = (e) => {
         this.setState({
             keyword: this.state.keyword,
-            numHorns: +e.target.value
+            numHorns: e.target.value
         })
     }
-
-    handleRemoveHornFilter = () => {
-        this.setState({
-            keyword: this.state.keyword,
-            numHorns: false
-        })
-    }
-
-    handleRemoveKeywordFilter = () => {
-        this.setState({
-            keyword: false,
-            numHorns: this.state.numHorns
-        })
-    }
-
+    
     render() { 
             const options = [...new Set(creatures.map(creature => creature.keyword))];
             return ( 
                 <>
-                <select name="creature-select" value="none" onChange={this.updateKeyword}>
+                <select name="creature-select" onChange={this.updateKeyword}>
                     <CreatureOptions 
                         options={options}
                         criterion={'keyword'}
                     />
                 </select>
-                <label htmlFor="creature-select">{this.state.keyword || ''}</label>
-                <button onClick={this.handleRemoveKeywordFilter}>Remove keyword Filter</button>
-                <select name="horn-select" value="none" onChange={this.updateHorns}>
+                <label htmlFor="creature-select">Filter by keyword</label>
+                <select name="horn-select" onChange={this.updateHorns}>
                     <CreatureOptions
                         options={[1, 2, 3, 100]}
                         criterion={'Horns'}
                     />
                 </select>
-                <label htmlFor="horn-select">{this.state.numHorns || ''}</label>
-                <button onClick={this.handleRemoveHornFilter}>Remove Horn Filter</button>
+                <label htmlFor="horn-select">Filter by number of horns</label>
                 <ImageList 
                     creatureImages={creatures.filter(
                         (creature) => {
-                            return this.state.keyword ? creature.keyword === this.state.keyword : true;
+                            return  creature.keyword === this.state.keyword || this.state.keyword === 'All';
                         }).filter(
                         (creature) => {
-                            return this.state.numHorns ? creature.horns === this.state.numHorns : true;
+                            return +this.state.numHorns === creature.horns || this.state.numHorns === 'All';
                         }
                     )}
                 />
