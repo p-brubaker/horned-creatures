@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ImageList from './Components/ImageList.js';
 import creatures from './horned-creatures';
-import CreatureOptions from './Components/CreatureOptions';
+import Dropdown from './Components/Dropdown';
+import { either } from './helpers.js';
+import { removeDuplicates } from './helpers.js';
 import './App.css';
 
 class App extends Component {
@@ -10,43 +12,53 @@ class App extends Component {
                 numHorns: 'All'
             }
 
-    updateKeyword = (e) => {
+    handleChangeKeyword = (e) => {
         this.setState({
             keyword: e.target.value,
         })
     }
 
-    updateHorns = (e) => {
+    handleChangeNumHorns = (e) => {
         this.setState({
             numHorns: e.target.value
         })
     }
 
     render() { 
-            const options = [...new Set(creatures.map(creature => creature.keyword))];
+            const numHorns = this.state.numHorns;
+            const keyword = this.state.keyword;
+
+            const filteredCreatures = creatures.filter(creature => {
+                return  either(keyword, creature.keyword, 'All')
+                }).filter(creature => {
+                return either(numHorns, creature.horns+'', 'All')
+            });
+
+            let keywordOptions = creatures.filter(creature => {
+                return either(numHorns, creature.horns+'', 'All')
+            }).map(creature => creature.keyword);
+
+            let hornOptions = creatures.filter(creature => {
+                return either(keyword, creature.keyword, 'All')
+            }).map(creature => creature.horns);
+
+            hornOptions = removeDuplicates(hornOptions);
+            keywordOptions = removeDuplicates(keywordOptions);
+
             return ( 
                 <>
-                <select name="creature-select" defaultValue="All" onChange={this.updateKeyword}>
-                    <CreatureOptions 
-                        options={[...options, 'All']}
-                    />
-                </select>
-                <label htmlFor="creature-select">Filter by keyword</label>
-                <select name="horn-select" defaultValue="All" onChange={this.updateHorns}>
-                    <CreatureOptions
-                        options={[1, 2, 3, 100, 'All']}
-                    />
-                </select>
-                <label htmlFor="horn-select">Filter by number of horns</label>
+                <Dropdown 
+                    handleChange={this.handleChangeKeyword}
+                    label='Filter by keyword'
+                    options = {keywordOptions}
+                />
+                <Dropdown
+                    handleChange={this.handleChangeNumHorns}
+                    label='Filter by number of horns'
+                    options={hornOptions}
+                />
                 <ImageList 
-                    creatureImages={creatures.filter(
-                        (creature) => {
-                            return  creature.keyword === this.state.keyword || this.state.keyword === 'All';
-                        }).filter(
-                        (creature) => {
-                            return +this.state.numHorns === creature.horns || this.state.numHorns === 'All';
-                        }
-                    )}
+                    creatureImages={filteredCreatures}
                 />
             </> 
         );
