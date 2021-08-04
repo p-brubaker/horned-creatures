@@ -24,10 +24,17 @@ class App extends Component {
         })
     }
 
-    handleRemoveFilters = () => {
+    handleRemoveHornFilter = () => {
+        this.setState({
+            keyword: this.state.keyword,
+            numHorns: false
+        })
+    }
+
+    handleRemoveKeywordFilter = () => {
         this.setState({
             keyword: false,
-            numHorns: false
+            numHorns: this.state.numHorns
         })
     }
 
@@ -35,17 +42,22 @@ class App extends Component {
             const options = [...new Set(creatures.map(creature => creature.keyword))];
             return ( 
                 <>
-                <select name="creature-select" onChange={this.updateKeyword}>
+                <select name="creature-select" value="none" onChange={this.updateKeyword}>
                     <CreatureOptions 
                         options={options}
+                        criterion={'keyword'}
                     />
                 </select>
-                <select name="horn-select" onChange={this.updateHorns}>
+                <label for="creature-select">{this.state.keyword || ''}</label>
+                <button onClick={this.handleRemoveKeywordFilter}>Remove keyword Filter</button>
+                <select name="horn-select" value="none" onChange={this.updateHorns}>
                     <CreatureOptions
                         options={[1, 2, 3, 100]}
+                        criterion={'Horns'}
                     />
                 </select>
-                <button onClick={this.handleRemoveFilters}>Remove Filters</button>
+                <label for="horn-select">{this.state.numHorns || ''}</label>
+                <button onClick={this.handleRemoveHornFilter}>Remove Horn Filter</button>
                 <ImageList 
                     creatureImages={creatures.filter(
                         (creature) => {
