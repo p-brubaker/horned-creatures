@@ -48,7 +48,7 @@ class App extends Component {
                         criterion={'keyword'}
                     />
                 </select>
-                <label for="creature-select">{this.state.keyword || ''}</label>
+                <label htmlFor="creature-select">{this.state.keyword || ''}</label>
                 <button onClick={this.handleRemoveKeywordFilter}>Remove keyword Filter</button>
                 <select name="horn-select" value="none" onChange={this.updateHorns}>
                     <CreatureOptions
@@ -56,7 +56,7 @@ class App extends Component {
                         criterion={'Horns'}
                     />
                 </select>
-                <label for="horn-select">{this.state.numHorns || ''}</label>
+                <label htmlFor="horn-select">{this.state.numHorns || ''}</label>
                 <button onClick={this.handleRemoveHornFilter}>Remove Horn Filter</button>
                 <ImageList 
                     creatureImages={creatures.filter(

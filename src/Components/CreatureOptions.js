@@ -10,7 +10,7 @@ class CreatureOptions extends Component {
                     </option>
                 );
             }),
-            <option value="none" selected disabled hidden key="display">
+            <option value="none" disabled hidden key="display">
                 Filter by {this.props.criterion}
             </option>
             ]
