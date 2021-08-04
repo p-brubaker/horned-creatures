@@ -13,13 +13,11 @@ class App extends Component {
     updateKeyword = (e) => {
         this.setState({
             keyword: e.target.value,
-            numHorns: this.state.numHorns
         })
     }
 
     updateHorns = (e) => {
         this.setState({
-            keyword: this.state.keyword,
             numHorns: e.target.value
         })
     }
@@ -30,13 +28,13 @@ class App extends Component {
                 <>
                 <select name="creature-select" defaultValue="All" onChange={this.updateKeyword}>
                     <CreatureOptions 
-                        options={options}
+                        options={[...options, 'All']}
                     />
                 </select>
                 <label htmlFor="creature-select">Filter by keyword</label>
                 <select name="horn-select" defaultValue="All" onChange={this.updateHorns}>
                     <CreatureOptions
-                        options={[1, 2, 3, 100]}
+                        options={[1, 2, 3, 100, 'All']}
                     />
                 </select>
                 <label htmlFor="horn-select">Filter by number of horns</label>
