@@ -31,14 +31,12 @@ class App extends Component {
                 <select name="creature-select" defaultValue="All" onChange={this.updateKeyword}>
                     <CreatureOptions 
                         options={options}
-                        criterion={'keyword'}
                     />
                 </select>
                 <label htmlFor="creature-select">Filter by keyword</label>
                 <select name="horn-select" defaultValue="All" onChange={this.updateHorns}>
                     <CreatureOptions
                         options={[1, 2, 3, 100]}
-                        criterion={'Horns'}
                     />
                 </select>
                 <label htmlFor="horn-select">Filter by number of horns</label>
