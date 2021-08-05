@@ -31,11 +31,11 @@ class App extends Component {
             const filteredCreatures = creatures.filter(creature => (
                 either(keyword, creature.keyword, 'All')
                 )).filter(creature => (
-                either(numHorns, creature.horns+'', 'All')
+                either(numHorns, String(creature.horns), 'All')
                 ));
 
             let keywordOptions = creatures.filter(creature => (
-                either(numHorns, creature.horns+'', 'All')
+                either(numHorns, String(creature.horns), 'All')
             )).map(creature => creature.keyword);
 
             let hornOptions = creatures.filter(creature => (
