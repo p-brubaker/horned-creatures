@@ -28,39 +28,43 @@ class App extends Component {
             const numHorns = this.state.numHorns;
             const keyword = this.state.keyword;
 
-            const filteredCreatures = creatures.filter(creature => {
-                return  either(keyword, creature.keyword, 'All')
-                }).filter(creature => {
-                return either(numHorns, creature.horns+'', 'All')
-            });
+            const filteredCreatures = creatures.filter(creature => (
+                either(keyword, creature.keyword, 'All')
+                )).filter(creature => (
+                either(numHorns, creature.horns+'', 'All')
+                ));
 
-            let keywordOptions = creatures.filter(creature => {
-                return either(numHorns, creature.horns+'', 'All')
-            }).map(creature => creature.keyword);
+            let keywordOptions = creatures.filter(creature => (
+                either(numHorns, creature.horns+'', 'All')
+            )).map(creature => creature.keyword);
 
-            let hornOptions = creatures.filter(creature => {
-                return either(keyword, creature.keyword, 'All')
-            }).map(creature => creature.horns);
+            let hornOptions = creatures.filter(creature => (
+                either(keyword, creature.keyword, 'All')
+            )).map(creature => creature.horns);
 
             hornOptions = removeDuplicates(hornOptions);
             keywordOptions = removeDuplicates(keywordOptions);
 
             return ( 
-                <>
-                <Dropdown 
-                    handleChange={this.handleChangeKeyword}
-                    label='Filter by keyword'
-                    options = {keywordOptions}
-                />
-                <Dropdown
-                    handleChange={this.handleChangeNumHorns}
-                    label='Filter by number of horns'
-                    options={hornOptions}
-                />
-                <ImageList 
-                    creatureImages={filteredCreatures}
-                />
-            </> 
+                <div className="page">
+                    <section className="dropdowns">
+                        <Dropdown 
+                            handleChange={this.handleChangeKeyword}
+                            label='Filter by keyword'
+                            options = {keywordOptions}
+                        />
+                        <Dropdown
+                            handleChange={this.handleChangeNumHorns}
+                            label='Filter by number of horns'
+                            options={hornOptions}
+                        />
+                    </section>
+                    <section className="images-container">
+                        <ImageList 
+                            creatureImages={filteredCreatures}
+                        />
+                    </section>
+                </div> 
         );
     }
 }

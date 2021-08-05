@@ -6,7 +6,7 @@ class Dropdown extends Component {
         const {handleChange, label, options} = this.props;
 
         return ( 
-            <>
+            <div className="dropdown">
             <label>{label}</label>
             <select defaultValue="All" onChange={handleChange}>
                 {options.map((option, i) => {
@@ -16,7 +16,7 @@ class Dropdown extends Component {
                     </option>
                 )})}
             </select>
-            </>
+            </div>
          );
     }
 }
